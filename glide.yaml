@@ -1,4 +1,4 @@
-package: github.com/dennisstritzke/ipsec_exporter
+package: github.com/Feder1co5oave/ipsec_exporter
 import:
 - package: github.com/prometheus/common
   subpackages:

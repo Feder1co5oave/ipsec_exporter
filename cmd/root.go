@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/dennisstritzke/ipsec_exporter/exporter"
+	"github.com/Feder1co5oave/ipsec_exporter/exporter"
 	"github.com/spf13/cobra"
 	"os"
 )
