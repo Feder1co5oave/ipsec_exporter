@@ -73,7 +73,7 @@ func (l *ipSecConfigurationLoader) getConfiguredIpSecConnection(ipSecConfigConte
 	ipSecConfigLines := l.extractLines(ipSecConfigContent)
 	for _, line := range ipSecConfigLines {
 		// Match connection definition lines
-		re := regexp.MustCompile(`conn\s([a-zA-Z0-9_-]+)`)
+		re := regexp.MustCompile(`conn\s([.a-zA-Z0-9_-]+)`)
 		match := re.FindStringSubmatch(line)
 		if len(match) >= 2 {
 			connections = append(connections, connection{name: match[1], ignored: false})
@@ -109,5 +109,17 @@ func (l *ipSecConfigurationLoader) loadConfig(fileName string) (string, error) {
 }
 
 func (l *ipSecConfigurationLoader) extractLines(ipsecConfig string) []string {
-	return strings.Split(ipsecConfig, "\n")
+	return l.dropComments(strings.Split(ipsecConfig, "\n"))
+}
+
+func (l *ipSecConfigurationLoader) dropComments(lines []string) []string {
+	var filteredLines []string
+
+	for _, line := range lines {
+		if !strings.HasPrefix(line, "#") {
+			filteredLines = append(filteredLines, line)
+		}
+	}
+
+	return filteredLines
 }
